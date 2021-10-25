@@ -11,21 +11,52 @@ body {
   background-color: white;
   border-radius: 15px;
   margin-top: 50px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0, 11), 0 4px 6px rgba(50, 50, 93, 0, 11);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .controls {
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls .controls__btns {
+  margin-top: 30px;
+}
+
+.controls .controls__btns button {
+  /* 버튼 스타일 아예 없애버리기 */
+  all: unset;
+  cursor: pointer;
+  background-color: white;
+  padding: 5px 0;
+  width: 80px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* 버튼 눌렀을 때 딸깍딸깍 */
+.controls .controls__btns button:active {
+  transform: scale(0.98);
 }
 
 .controls .controls__colors {
   display: flex;
+  margin-top: 30px;
 }
 
 .controls__colors .controls__color {
   width: 50px;
   height: 50px;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0, 11), 0 4px 6px rgba(50, 50, 93, 0, 11);
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   border-radius: 50%;
   cursor: pointer;
 }
+
+.controls .controls__range {}
