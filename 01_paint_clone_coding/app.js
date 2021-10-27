@@ -3,10 +3,14 @@ const ctx = canvas.getContext("2d")
 const colors = document.getElementsByClassName("jsColor")
 const range = document.getElementById("jsRange")
 const mode = document.getElementById("jsMode")
-const INITIAL_COLOR = "#2c2c2c"
+const saveBtn = document.getElementById("jsSave")
 
+const INITIAL_COLOR = "#2c2c2c"
 canvas.width = 500
 canvas.height = 700
+
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height)
 ctx.strokeStyle = INITIAL_COLOR
 ctx.fillStyle = INITIAL_COLOR
 ctx.lineWidth = 2.5
@@ -67,6 +71,15 @@ function handleCanvasClick() {
   }
 }
 
+function handleSaveClick() {
+  const image = canvas.toDataURL("image/jpeg")
+  // a 태그의 download 는 하이퍼링크로 이동하는 대신 다운로드 링크를 제공
+  const link = document.createElement("a")
+  link.href = image
+  link.download = "myPaint"
+  link.click()
+}
+
 if (canvas) {
   canvas.addEventListener('mousemove', onMouseMove)
   canvas.addEventListener('mousedown', startPaing)
@@ -85,3 +98,7 @@ if (mode) {
   mode.addEventListener("click", handleModeClick)
 }
 // Array.from 메서드는 객체로부터 배열을 만든다
+
+if (saveBtn) {
+  saveBtn.addEventListener("click", handleSaveClick)
+}
