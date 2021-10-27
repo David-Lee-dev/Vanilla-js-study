@@ -1,6 +1,7 @@
 const canvas = document.getElementById("jsCanvas")
 const ctx = canvas.getContext("2d")
 const colors = document.getElementsByClassName("jsColor")
+const range = document.getElementById("jsRange")
 
 canvas.width = 500
 canvas.height = 700
@@ -40,12 +41,21 @@ function handleColorClick(event) {
   ctx.strokeStyle = color
 }
 
+function handleRangeChange(event) {
+  const val = event.target.value
+  ctx.lineWidth = val
+}
+
 if (canvas) {
   canvas.addEventListener('mousemove', onMouseMove)
   canvas.addEventListener('mousedown', startPaing)
   canvas.addEventListener('mouseup', stopPainting)
   canvas.addEventListener('mouseleave', stopPainting)
 }
-Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick))
-
+if (colors) {
+  Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick))
+}
+if (range) {
+  range.addEventListener("input", handleRangeChange)
+}
 // Array.from 메서드는 객체로부터 배열을 만든다
