@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+  <script>
+    // .key클래스에 해당하는 요소를 모두 선택하여 배열로 반환
+    const keys = Array.from(document.querySelectorAll('.key'))
+    // 각 key들에 이벤트리스터 할당
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+    // 윈도우에 이벤트 리스너 할당
+    window.addEventListener('keydown', playSound)
+
+    // 트랜지션 종료 뒤 호출할 함수
+    function removeTransition(e) {
+      // 트랜스폼이 0.7초에 걸쳐 진행된 뒤 실행하도록 설정
+      if (e.propertyName !== 'transform') return;
+      e.target.classList.remove('playing');
+      // 키 씹힘 방지
+      setTimeout(() => {
+        e.target.classList.remove('playing');
+      }, 1000)
+    }
+
+    // window에서 키 입력이 감지되면 발생하는 이벤트
+    // event 인자에 keyCode가 저장되어 있음
+    function playSound(e) {
+      // key코드에 해당하는 요소를 선택
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+      // 설정된 key가 없을 경우 종료
+      if (!audio) return;
+
+      // playing이라는 클래스 추가
+      key.classList.add('playing');
+      audio.currentTime = 0;
+      audio.play();
+    }
+  </script>
+
+
+</body>
+
+</html>
